@@ -1,0 +1,136 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ecomm-app
+spec:
+  replicas: 3
+  minReadySeconds: 10 # wait for 10 sec before going to deploy next pod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1  
+      maxSurge: 1        # max number of pods to run for the deployment
+  selector:
+    matchLabels:
+      app: ecomm-app
+  template:
+    metadata:
+      name: ecomm-app
+      labels:
+        app: ecomm-app
+    spec:
+      containers:
+       - name: app
+         image: 7011347758/test:v0.2.0
+         ports:
+          - containerPort: 80
+
+
+
+
+
+
+
+
+
+
+# # apiVersion: apps/v1
+# # kind: Deployment
+# # metadata:
+# #   name: nginx
+# #   labels:
+# #     app: nginx
+# # spec:
+# #   replicas: 1
+# #   selector:
+# #     matchLabels:
+# #       app: nginx
+# #   template:
+# #     metadata:
+# #       name: nginxpod
+# #       labels:
+# #         app: nginx
+# #     spec:
+# #       containers:
+# #         - name: nginx
+# #           # image: saiyam911/stress
+# #           image: nginx:latest
+# #           ports:
+# #           - containerPort: 80
+# #           # resources:
+# #           #   limits:
+# #           #     cpu: 20m ## 10% of 1 core on your system
+# #           # command: ["stress"]
+# #           # args: ["--cpu", "1"]
+
+
+# apiVersion: apps/v1
+
+# kind: Deployment
+
+# metadata:
+
+#   name: php-apache
+
+# spec:
+#   replicas: 3
+
+#   selector:
+
+#     matchLabels:
+
+#       run: php-apache
+
+#   template:
+
+#     metadata:
+
+#       labels:
+
+#         run: php-apache
+
+#     spec:
+
+#       containers:
+
+#       - name: php-apache
+
+#         image: registry.k8s.io/hpa-example
+
+#         ports:
+
+#         - containerPort: 80
+
+#         resources:
+
+#           limits:
+
+#             cpu: 500m
+
+#           requests:
+
+#             cpu: 200m
+
+# ---
+
+# apiVersion: v1
+
+# kind: Service
+
+# metadata:
+
+#   name: php-apache
+
+#   labels:
+
+#     run: php-apache
+
+# spec:
+
+#   ports:
+
+#   - port: 80
+
+#   selector:
+
+#     run: php-apache
