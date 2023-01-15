@@ -31,7 +31,7 @@ jobs:
         id: docker_tags
         uses: anothrNick/github-tag-action@1.40.0
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.TOKEN }}
          WITH_V: true
          
       - name: Build docker image and push docker image on docker hub 
